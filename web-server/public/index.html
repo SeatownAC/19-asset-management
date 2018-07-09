@@ -10,6 +10,7 @@
         <h1>Upload File</h1>
         <em>Note: This will not work unless you set a Bearer Authorization header with a valid token...</em>
         <form action="http://localhost:3000/upload" method="post" enctype="multipart/form-data">
+            <!-- method is what it calls - POST on our server, enctype is encryption type, multer gets its name from this and it ONLY accepts multipart/form data -->
             <label>
                 Title
                 <input name="title" />
