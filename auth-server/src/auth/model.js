@@ -1,6 +1,6 @@
 'use strict';
 
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   email: {type: String, required: true},
+  image : {type: Schema.Types.ObjectId, ref : 'image'},
+
 });
 
 // Before we save, hash the plain text password
@@ -40,6 +42,8 @@ userSchema.statics.createFromOAuth = function(incoming) {
    */
 
   if ( ! incoming || ! incoming.email ) {
+    // make sure theres and email in the Github user object received
+    
     return Promise.reject('VALIDATION ERROR: missing username/email or password ');
   }
 

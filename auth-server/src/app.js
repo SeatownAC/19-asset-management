@@ -5,7 +5,12 @@ import morgan from 'morgan';
 import cors from 'cors';
 
 import authRouter from './auth/router.js';
+
+// import the uploadRouter
 import uploadRouter from './routes/upload.js';
+import deleteRouter from './routes/delete.js';
+import getRouter from './routes/get.js';
+
 
 import errorHandler from './middleware/error.js';
 import notFound from './middleware/404.js';
@@ -17,7 +22,13 @@ app.use(morgan('dev'));
 app.use(express.json());  // => req.body
 app.use(express.urlencoded({extended:true})); // req.body => from a form's key value pairs
 
+//use the uploadRouter
 app.use(uploadRouter);
+app.use(getRouter);
+app.use(deleteRouter);
+
+
+//authRouter has the /signin route
 app.use(authRouter);
 
 app.use(notFound);

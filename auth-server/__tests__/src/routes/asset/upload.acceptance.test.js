@@ -1,9 +1,11 @@
 'use strict';
 
-require('dotenv').config({path: `${__dirname}/../../../.env`});
+require('dotenv').config({path: `${__dirname}/../../../../.env`});
+// this is a way to bring in your env file for your tests but you can use this method anywhere
+
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const {app} = require('../../../src/app.js');
+const {app} = require('../../../../src/app.js');
 
 const request = supertest(app);
 
@@ -17,8 +19,18 @@ describe('/upload', () => {
   });
 
   it('POST /upload  200', () => {
+
+    // return request.get('/signin')
+    //   .auth('john','john')
+    //   .then(response => {
+    //     console.log('RESPONSE: ',response.text)
+    //   })
+    //   .catch( () => {
+    //     console.log('ERROR')
+    //   })
+
     return request.get('/signin')
-      .auth('john','john')
+      .auth('max','max')
       .then(response => {
         return request.post(`/upload`)
           .set('Authorization', `Bearer ${response.text}`)
@@ -29,6 +41,7 @@ describe('/upload', () => {
             expect(res.body.url).toBeTruthy();
           });
       });
+
   });
 });
 
